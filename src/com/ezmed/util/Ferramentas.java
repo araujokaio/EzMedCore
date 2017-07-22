@@ -2,6 +2,8 @@ package com.ezmed.util;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.net.URL;
+import java.security.CodeSource;
 import java.sql.Timestamp;
 import java.util.Properties;
 
@@ -11,7 +13,7 @@ public class Ferramentas
     {
     }
 
-    public static String lerPropriedade(String caminhoArquivo, String nomePropriedade)
+    public static String lerPropriedade(String nomeArquivo, String nomePropriedade)
     {
         Properties prop = new Properties();
         InputStream input = null;
@@ -19,9 +21,13 @@ public class Ferramentas
 
         try
         {
-            input = new FileInputStream(caminhoArquivo);
+            CodeSource src = Ferramentas.class.getProtectionDomain().getCodeSource();
+            URL url = new URL(src.getLocation(), nomeArquivo);
+
+            input = new FileInputStream(url.getFile());
 
             prop.load(input);
+
             saida = prop.getProperty(nomePropriedade);
         }
         catch (Exception ex)
@@ -55,9 +61,13 @@ public class Ferramentas
 
         try
         {
-            input = new FileInputStream("config.properties");
+            CodeSource src = Ferramentas.class.getProtectionDomain().getCodeSource();
+            URL url = new URL(src.getLocation(), "config.properties");
+
+            input = new FileInputStream(url.getFile());
 
             prop.load(input);
+
             saida = prop.getProperty(nomePropriedade);
         }
         catch (Exception ex)
