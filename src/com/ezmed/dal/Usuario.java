@@ -344,4 +344,61 @@ public class Usuario extends BancoBasico
             }
         }
     }
+
+    public String recuperarSenha(String paramBusca, boolean isEmail, boolean isCelular)
+    {
+        ResultSet resultado;
+        String senha = "";
+        String selectUsuario = "";
+
+        if (isEmail)
+            selectUsuario = "SELECT ID, USUARIO, EMAIL, SENHA, NUMERO_CELULAR, IS_ATIVO FROM EZ_USUARIO WHERE UPPER(EMAIL) = UPPER(?)";
+        else if (isCelular)
+            selectUsuario = "SELECT ID, USUARIO, EMAIL, SENHA, NUMERO_CELULAR, IS_ATIVO FROM EZ_USUARIO WHERE NUMERO_CELULAR = ?";
+
+        try
+        {
+            comandoSelectUsuario = getMyConn().prepareStatement(selectUsuario);
+
+            comandoSelectUsuario.setString(1, paramBusca);
+
+            resultado = comandoSelectUsuario.executeQuery();
+
+            if (resultado.next())
+            {
+                senha = resultado.getString("SENHA");
+            }
+
+            return senha;
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Houve um problema para ataulizar o usuário!");
+            ex.printStackTrace();
+            return "";
+            //TODO Metodo de log em arquivo
+        }
+        finally
+        {
+            try
+            {
+                if (comandoSelectUsuario != null)
+                {
+                    comandoSelectUsuario.close();
+                }
+
+                if (getMyConn() != null)
+                {
+                    getMyConn().close();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.out.println("Houve um problema para encerrar a conexão do banco de dados!");
+                ex.printStackTrace();
+                //TODO Metodo de log em arquivo
+            }
+        }
+    }
+
 }

@@ -10,7 +10,7 @@ public class BancoBasico
     {
     }
 
-    public Connection getMyConn()
+    protected Connection getMyConn()
     {
         Connection myConn;
 
