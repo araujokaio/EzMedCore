@@ -35,13 +35,15 @@ public class Usuario extends BancoBasico
             sucesso = comandoInsertUsuario.execute();
 
             return sucesso;
-        } catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             System.out.println("Houve um problema para criar o usuário!");
             ex.printStackTrace();
             return sucesso;
             //TODO Metodo de log em arquivo
-        } finally
+        }
+        finally
         {
             try
             {
@@ -54,7 +56,8 @@ public class Usuario extends BancoBasico
                 {
                     getMyConn().close();
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 System.out.println("Houve um problema para encerrar a conexão do banco de dados!");
                 ex.printStackTrace();
@@ -82,13 +85,15 @@ public class Usuario extends BancoBasico
             sucesso = comandoUpdateUsuario.execute();
 
             return sucesso;
-        } catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             System.out.println("Houve um problema para ataulizar o usuário!");
             ex.printStackTrace();
             return sucesso;
             //TODO Metodo de log em arquivo
-        } finally
+        }
+        finally
         {
             try
             {
@@ -101,7 +106,8 @@ public class Usuario extends BancoBasico
                 {
                     getMyConn().close();
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 System.out.println("Houve um problema para encerrar a conexão do banco de dados!");
                 ex.printStackTrace();
@@ -142,7 +148,8 @@ public class Usuario extends BancoBasico
             ex.printStackTrace();
             return objUsuario;
             //TODO Metodo de log em arquivo
-        } finally
+        }
+        finally
         {
             try
             {
@@ -155,7 +162,57 @@ public class Usuario extends BancoBasico
                 {
                     getMyConn().close();
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
+            {
+                System.out.println("Houve um problema para encerrar a conexão do banco de dados!");
+                ex.printStackTrace();
+                //TODO Metodo de log em arquivo
+            }
+        }
+    }
+
+    public boolean localizarUsuario(com.ezmed.dto.Usuario usuario)
+    {
+        ResultSet resultado;
+        com.ezmed.dto.Usuario objUsuario = new com.ezmed.dto.Usuario();
+        String selectUsuario = "SELECT * FROM EZ_USUARIO WHERE USUARIO = ? AND SENHA = ?";
+
+        try
+        {
+            comandoSelectUsuario = getMyConn().prepareStatement(selectUsuario);
+
+            comandoSelectUsuario.setString(1, usuario.getUsuario());
+            comandoSelectUsuario.setString(2, usuario.getSenha());
+
+            resultado = comandoSelectUsuario.executeQuery();
+
+            if (resultado.next()) return true;
+
+            return false;
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Houve um problema para ataulizar o usuário!");
+            ex.printStackTrace();
+            return false;
+            //TODO Metodo de log em arquivo
+        }
+        finally
+        {
+            try
+            {
+                if (comandoSelectUsuario != null)
+                {
+                    comandoSelectUsuario.close();
+                }
+
+                if (getMyConn() != null)
+                {
+                    getMyConn().close();
+                }
+            }
+            catch (Exception ex)
             {
                 System.out.println("Houve um problema para encerrar a conexão do banco de dados!");
                 ex.printStackTrace();
@@ -170,11 +227,11 @@ public class Usuario extends BancoBasico
         com.ezmed.dto.Usuario objUsuario = new com.ezmed.dto.Usuario();
         String selectUsuario = "";
 
-        if(isUsuario)
+        if (isUsuario)
             selectUsuario = "SELECT ID, USUARIO, EMAIL, SENHA, NUMERO_CELULAR, IS_ATIVO FROM EZ_USUARIO WHERE UPPER(USUARIO) = UPPER(?)";
-        else if(isEmail)
+        else if (isEmail)
             selectUsuario = "SELECT ID, USUARIO, EMAIL, SENHA, NUMERO_CELULAR, IS_ATIVO FROM EZ_USUARIO WHERE UPPER(EMAIL) = UPPER(?)";
-        else if(isCelular)
+        else if (isCelular)
             selectUsuario = "SELECT ID, USUARIO, EMAIL, SENHA, NUMERO_CELULAR, IS_ATIVO FROM EZ_USUARIO WHERE NUMERO_CELULAR = ?";
 
         try
@@ -203,7 +260,8 @@ public class Usuario extends BancoBasico
             ex.printStackTrace();
             return objUsuario;
             //TODO Metodo de log em arquivo
-        } finally
+        }
+        finally
         {
             try
             {
@@ -216,7 +274,8 @@ public class Usuario extends BancoBasico
                 {
                     getMyConn().close();
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 System.out.println("Houve um problema para encerrar a conexão do banco de dados!");
                 ex.printStackTrace();
@@ -262,7 +321,8 @@ public class Usuario extends BancoBasico
             ex.printStackTrace();
             return listaUsuarios;
             //TODO Metodo de log em arquivo
-        } finally
+        }
+        finally
         {
             try
             {
@@ -275,55 +335,8 @@ public class Usuario extends BancoBasico
                 {
                     getMyConn().close();
                 }
-            } catch (Exception ex)
-            {
-                System.out.println("Houve um problema para encerrar a conexão do banco de dados!");
-                ex.printStackTrace();
-                //TODO Metodo de log em arquivo
             }
-        }
-    }
-
-    public boolean logar(com.ezmed.dto.Usuario usuario)
-    {
-        ResultSet resultado;
-        com.ezmed.dto.Usuario objUsuario = new com.ezmed.dto.Usuario();
-        String selectUsuario = "SELECT * FROM EZ_USUARIO WHERE USUARIO = ? AND SENHA = ?";
-
-        try
-        {
-            comandoSelectUsuario = getMyConn().prepareStatement(selectUsuario);
-
-            comandoSelectUsuario.setString(1, usuario.getUsuario());
-            comandoSelectUsuario.setString(2, usuario.getSenha());
-
-            resultado = comandoSelectUsuario.executeQuery();
-
-            if (resultado.next())
-                return true;
-
-            return false;
-        }
-        catch (Exception ex)
-        {
-            System.out.println("Houve um problema para ataulizar o usuário!");
-            ex.printStackTrace();
-            return false;
-            //TODO Metodo de log em arquivo
-        } finally
-        {
-            try
-            {
-                if (comandoSelectUsuario != null)
-                {
-                    comandoSelectUsuario.close();
-                }
-
-                if (getMyConn() != null)
-                {
-                    getMyConn().close();
-                }
-            } catch (Exception ex)
+            catch (Exception ex)
             {
                 System.out.println("Houve um problema para encerrar a conexão do banco de dados!");
                 ex.printStackTrace();
