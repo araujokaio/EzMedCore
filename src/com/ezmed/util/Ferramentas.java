@@ -87,4 +87,14 @@ public class Ferramentas
         java.util.Date today = new java.util.Date();
         return new Timestamp(today.getTime());
     }
+
+    public static String booleanParaString(boolean propriedade)
+    {
+        return propriedade ? "S" : "N";
+    }
+
+    public static boolean stringParaBoolean(String propriedade)
+    {
+        return propriedade.equals("S");
+    }
 }
