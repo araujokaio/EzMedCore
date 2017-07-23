@@ -28,7 +28,7 @@ public class Usuario
         return dalUsuario.atualizarUsuario(usuario);
     }
 
-    public boolean logarUsuario(com.ezmed.dto.Usuario usuario)
+    public int logarUsuario(com.ezmed.dto.Usuario usuario)
     {
         com.ezmed.dal.Usuario dalUsuario = new com.ezmed.dal.Usuario();
 

@@ -116,6 +116,55 @@ public class Usuario extends BancoBasico
         }
     }
 
+    public int localizarUsuario(com.ezmed.dto.Usuario usuario)
+    {
+        ResultSet resultado;
+        com.ezmed.dto.Usuario objUsuario = new com.ezmed.dto.Usuario();
+        String selectUsuario = "SELECT * FROM EZ_USUARIO WHERE USUARIO = ? AND SENHA = ?";
+
+        try
+        {
+            comandoSelectUsuario = getMyConn().prepareStatement(selectUsuario);
+
+            comandoSelectUsuario.setString(1, usuario.getUsuario());
+            comandoSelectUsuario.setString(2, usuario.getSenha());
+
+            resultado = comandoSelectUsuario.executeQuery();
+
+            if (resultado.next()) return resultado.getInt("ID");
+
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            System.out.println("Houve um problema para localizar o usuário!");
+            ex.printStackTrace();
+            return 0;
+            //TODO Metodo de log em arquivo
+        }
+        finally
+        {
+            try
+            {
+                if (comandoSelectUsuario != null)
+                {
+                    comandoSelectUsuario.close();
+                }
+
+                if (getMyConn() != null)
+                {
+                    getMyConn().close();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.out.println("Houve um problema para encerrar a conexão do banco de dados!");
+                ex.printStackTrace();
+                //TODO Metodo de log em arquivo
+            }
+        }
+    }
+
     public com.ezmed.dto.Usuario localizarUsuario(int id)
     {
         ResultSet resultado;
@@ -144,58 +193,9 @@ public class Usuario extends BancoBasico
         }
         catch (Exception ex)
         {
-            System.out.println("Houve um problema para ataulizar o usuário!");
+            System.out.println("Houve um problema para localizar o usuário!");
             ex.printStackTrace();
             return objUsuario;
-            //TODO Metodo de log em arquivo
-        }
-        finally
-        {
-            try
-            {
-                if (comandoSelectUsuario != null)
-                {
-                    comandoSelectUsuario.close();
-                }
-
-                if (getMyConn() != null)
-                {
-                    getMyConn().close();
-                }
-            }
-            catch (Exception ex)
-            {
-                System.out.println("Houve um problema para encerrar a conexão do banco de dados!");
-                ex.printStackTrace();
-                //TODO Metodo de log em arquivo
-            }
-        }
-    }
-
-    public boolean localizarUsuario(com.ezmed.dto.Usuario usuario)
-    {
-        ResultSet resultado;
-        com.ezmed.dto.Usuario objUsuario = new com.ezmed.dto.Usuario();
-        String selectUsuario = "SELECT * FROM EZ_USUARIO WHERE USUARIO = ? AND SENHA = ?";
-
-        try
-        {
-            comandoSelectUsuario = getMyConn().prepareStatement(selectUsuario);
-
-            comandoSelectUsuario.setString(1, usuario.getUsuario());
-            comandoSelectUsuario.setString(2, usuario.getSenha());
-
-            resultado = comandoSelectUsuario.executeQuery();
-
-            if (resultado.next()) return true;
-
-            return false;
-        }
-        catch (Exception ex)
-        {
-            System.out.println("Houve um problema para ataulizar o usuário!");
-            ex.printStackTrace();
-            return false;
             //TODO Metodo de log em arquivo
         }
         finally
@@ -289,13 +289,17 @@ public class Usuario extends BancoBasico
         ResultSet resultado;
         ArrayList<com.ezmed.dto.Usuario> listaUsuarios = new ArrayList<>();
 
-        String selectUsuario = "SELECT ID, USUARIO, EMAIL, SENHA, NUMERO_CELULAR, IS_ATIVO FROM EZ_USUARIO WHERE IS_ATIVO = ?";
+        String selectUsuario = "SELECT ID, USUARIO, EMAIL, SENHA, NUMERO_CELULAR, IS_ATIVO FROM EZ_USUARIO";
+
+        if(apenasAtivos)
+            selectUsuario = selectUsuario + " WHERE IS_ATIVO = ?";
 
         try
         {
             comandoSelectUsuario = getMyConn().prepareStatement(selectUsuario);
 
-            comandoSelectUsuario.setString(1, Ferramentas.booleanParaString(apenasAtivos));
+            if(apenasAtivos)
+                comandoSelectUsuario.setString(1, Ferramentas.booleanParaString(apenasAtivos));
 
             resultado = comandoSelectUsuario.executeQuery();
 
@@ -317,7 +321,7 @@ public class Usuario extends BancoBasico
         }
         catch (Exception ex)
         {
-            System.out.println("Houve um problema para ataulizar o usuário!");
+            System.out.println("Houve um problema para localizar os usuários!");
             ex.printStackTrace();
             return listaUsuarios;
             //TODO Metodo de log em arquivo
@@ -373,7 +377,7 @@ public class Usuario extends BancoBasico
         }
         catch (Exception ex)
         {
-            System.out.println("Houve um problema para ataulizar o usuário!");
+            System.out.println("Houve um problema para recuperar a senha!");
             ex.printStackTrace();
             return "";
             //TODO Metodo de log em arquivo
