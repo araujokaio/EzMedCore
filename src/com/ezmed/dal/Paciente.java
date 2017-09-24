@@ -29,7 +29,7 @@ public class Paciente extends BancoBasico
 
             comandoInsertPaciente.setInt(1, idUsuario);
             comandoInsertPaciente.setString(2, paciente.getNome());
-            comandoInsertPaciente.setDate(3, paciente.getDataNascimento());
+            comandoInsertPaciente.setDate(3, paciente.getDataNascimentoSql());
             comandoInsertPaciente.setDouble(4, paciente.getPeso());
             comandoInsertPaciente.setDouble(4, paciente.getAltura());
 
@@ -77,7 +77,7 @@ public class Paciente extends BancoBasico
             comandoUpdatePaciente = getMyConn().prepareStatement(updatePaciente);
 
             comandoInsertPaciente.setString(1, paciente.getNome());
-            comandoInsertPaciente.setDate(2, paciente.getDataNascimento());
+            comandoInsertPaciente.setDate(2, paciente.getDataNascimentoSql());
             comandoInsertPaciente.setDouble(3, paciente.getPeso());
             comandoInsertPaciente.setDouble(4, paciente.getAltura());
             comandoInsertPaciente.setInt(5, paciente.getId());

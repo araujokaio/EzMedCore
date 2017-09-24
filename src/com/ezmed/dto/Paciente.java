@@ -1,7 +1,7 @@
 package com.ezmed.dto;
 
 import java.util.List;
-import java.sql.Date;
+import java.util.Date;
 
 public class Paciente
 {
@@ -59,6 +59,11 @@ public class Paciente
     public Date getDataNascimento()
     {
         return dataNascimento;
+    }
+
+    public java.sql.Date getDataNascimentoSql()
+    {
+        return new java.sql.Date(getDataNascimento().getTime());
     }
 
     public void setDataNascimento(Date dataNascimento)

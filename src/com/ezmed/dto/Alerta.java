@@ -1,5 +1,6 @@
 package com.ezmed.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Alerta {
@@ -41,6 +42,17 @@ public class Alerta {
 
     public Date getHorario() {
         return horario;
+    }
+
+    public String getHorarioString() {
+        String dateString = null;
+        SimpleDateFormat sdfr = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        try{
+            dateString = sdfr.format( horario );
+        }catch (Exception ex ){
+            System.out.println(ex);
+        }
+        return dateString;
     }
 
     public void setHorario(Date horario) {

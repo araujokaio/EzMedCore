@@ -4,11 +4,11 @@ public class Cuidador {
 
     private int id;
     private String nome;
-    private int numeroCelular;
+    private String numeroCelular;
     private String email;
     private String observacao;
 
-    public Cuidador(int id, String nome, int numeroCelular, String email, String observacao) {
+    public Cuidador(int id, String nome, String numeroCelular, String email, String observacao) {
         this.id = id;
         this.nome = nome;
         this.numeroCelular = numeroCelular;
@@ -16,7 +16,7 @@ public class Cuidador {
         this.observacao = observacao;
     }
 
-    public Cuidador(String nome, int numeroCelular, String email, String observacao) {
+    public Cuidador(String nome, String numeroCelular, String email, String observacao) {
         this.nome = nome;
         this.numeroCelular = numeroCelular;
         this.email = email;
@@ -42,11 +42,11 @@ public class Cuidador {
         this.nome = nome;
     }
 
-    public int getNumeroCelular() {
+    public String getNumeroCelular() {
         return numeroCelular;
     }
 
-    public void setNumeroCelular(int numeroCelular) {
+    public void setNumeroCelular(String numeroCelular) {
         this.numeroCelular = numeroCelular;
     }
 

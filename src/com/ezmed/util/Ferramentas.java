@@ -1,11 +1,18 @@
 package com.ezmed.util;
 
+import com.ezmed.dto.Alerta;
+import com.ezmed.dto.Cuidador;
+import com.ezmed.dto.Paciente;
+import com.ezmed.dto.Tratamento;
+
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.security.CodeSource;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Properties;
+import java.util.Random;
 
 public class Ferramentas
 {
@@ -107,4 +114,54 @@ public class Ferramentas
     {
         return propriedade.equals("S");
     }
+
+    public static Alerta gerarAlertaRandomico()
+    {
+        Alerta alerta = new Alerta();
+
+        alerta.setId(gerarIntAleatorio(1, 1000));
+        alerta.setHorario(new Date());
+        alerta.setObservacao("Observação do alarme " + alerta.getId());
+
+        alerta.setAssistante(gerarCuidadorRandomico());
+        alerta.setPaciente(gerarPacienteRandomico());
+        alerta.setTratamento(null);
+
+        return alerta;
+    }
+
+    public static Cuidador gerarCuidadorRandomico()
+    {
+        Cuidador cuidador = new Cuidador();
+
+        cuidador.setId(gerarIntAleatorio(1,1000));
+        cuidador.setEmail("cuidador_"+cuidador.getId()+"@ezmed.com");
+        cuidador.setNome("Cuidador " + cuidador.getId());
+        cuidador.setNumeroCelular(String.valueOf(cuidador.getId()));
+        cuidador.setObservacao("Observação do cuidador " + cuidador.getId());
+
+        return cuidador;
+    }
+
+    public static Paciente gerarPacienteRandomico()
+    {
+        Paciente paciente = new Paciente();
+
+        paciente.setId(gerarIntAleatorio(1,1000));
+        paciente.setAltura(1.90);
+        paciente.setPeso(100);
+        paciente.setDataNascimento(new Date());
+        paciente.setNome("Paciente " + paciente.getId());
+        paciente.setEstoque(null);
+
+        return paciente;
+    }
+
+    private static int gerarIntAleatorio(int min, int max)
+    {
+        Random aleatorio = new Random();
+
+        return aleatorio.nextInt(max) + min;
+    }
+
 }
