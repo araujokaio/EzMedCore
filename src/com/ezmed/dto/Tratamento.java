@@ -5,14 +5,16 @@ import java.util.Date;
 public class Tratamento {
 
     private int id;
+    private String nome;
     private Medicamento medicamento;
-    private  double dose;
+    private double dose;
     private Date inicio;
     private Date fim;
     private String observacao;
 
-    public Tratamento(int id, Medicamento medicamento, double dose, Date inicio, Date fim, String observacao) {
+    public Tratamento(int id, String nome, Medicamento medicamento, double dose, Date inicio, Date fim, String observacao) {
         this.id = id;
+        this.nome = nome;
         this.medicamento = medicamento;
         this.dose = dose;
         this.inicio = inicio;
@@ -20,8 +22,9 @@ public class Tratamento {
         this.observacao = observacao;
     }
 
-    public Tratamento(Medicamento medicamento, double dose, Date inicio, Date fim, String observacao) {
+    public Tratamento(Medicamento medicamento, String nome, double dose, Date inicio, Date fim, String observacao) {
         this.medicamento = medicamento;
+        this.nome = nome;
         this.dose = dose;
         this.inicio = inicio;
         this.fim = fim;
@@ -37,6 +40,14 @@ public class Tratamento {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public Medicamento getMedicamento() {

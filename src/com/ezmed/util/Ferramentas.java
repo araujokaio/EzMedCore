@@ -1,15 +1,13 @@
 package com.ezmed.util;
 
-import com.ezmed.dto.Alerta;
-import com.ezmed.dto.Cuidador;
-import com.ezmed.dto.Paciente;
-import com.ezmed.dto.Tratamento;
+import com.ezmed.dto.*;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.security.CodeSource;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
@@ -80,7 +78,6 @@ public class Ferramentas
         catch (Exception ex)
         {
             ex.printStackTrace();
-            //TODO Metodo de log em arquivo
         }
         finally
         {
@@ -123,11 +120,23 @@ public class Ferramentas
         alerta.setHorario(new Date());
         alerta.setObservacao("Observação do alarme " + alerta.getId());
 
-        alerta.setAssistante(gerarCuidadorRandomico());
+        alerta.setAssistantes(gerarCuidadoresRandomico());
         alerta.setPaciente(gerarPacienteRandomico());
-        alerta.setTratamento(null);
+        alerta.setTratamento(gerarTratamentoRandomico());
 
         return alerta;
+    }
+
+    public static ArrayList<Cuidador> gerarCuidadoresRandomico()
+    {
+        ArrayList<Cuidador> listCuidador = new ArrayList<>();
+
+        for(int i = 0; i < 10; i++)
+        {
+            listCuidador.add(gerarCuidadorRandomico());
+        }
+
+        return listCuidador;
     }
 
     public static Cuidador gerarCuidadorRandomico()
@@ -157,11 +166,45 @@ public class Ferramentas
         return paciente;
     }
 
+    public static Tratamento gerarTratamentoRandomico()
+    {
+        Tratamento tratamento = new Tratamento();
+
+        tratamento.setId(gerarIntAleatorio(1,1000));
+        tratamento.setNome("Tratamento " + tratamento.getId());
+        tratamento.setMedicamento(gerarMedicamentoRandomico());
+        tratamento.setInicio(new Date());
+        tratamento.setFim(new Date());
+        tratamento.setDose(gerarDoubleAleatorio(10));
+        tratamento.setObservacao("Observação do Tratamento " + tratamento.getId());
+
+        return tratamento;
+    }
+
+    public static Medicamento gerarMedicamentoRandomico()
+    {
+        Medicamento medicamento = new Medicamento();
+
+        medicamento.setId(gerarIntAleatorio(1,1000));
+        medicamento.setNome("Medicamento " + medicamento.getId());
+        medicamento.setTipo("Antibiotico");
+
+        return medicamento;
+    }
+
     private static int gerarIntAleatorio(int min, int max)
     {
         Random aleatorio = new Random();
 
         return aleatorio.nextInt(max) + min;
     }
+
+    private static double gerarDoubleAleatorio(double min)
+    {
+        Random aleatorio = new Random();
+
+        return aleatorio.nextDouble() + min;
+    }
+
 
 }

@@ -42,7 +42,6 @@ public class Paciente extends BancoBasico
             System.out.println("Houve um problema para criar o paciente!");
             ex.printStackTrace();
             return sucesso;
-            //TODO Metodo de log em arquivo
         }
         finally
         {
@@ -62,7 +61,6 @@ public class Paciente extends BancoBasico
             {
                 System.out.println("Houve um problema para encerrar a conexão do banco de dados!");
                 ex.printStackTrace();
-                //TODO Metodo de log em arquivo
             }
         }
     }
@@ -91,7 +89,6 @@ public class Paciente extends BancoBasico
             System.out.println("Houve um problema para ataulizar o paciente!");
             ex.printStackTrace();
             return sucesso;
-            //TODO Metodo de log em arquivo
         }
         finally
         {
@@ -111,7 +108,6 @@ public class Paciente extends BancoBasico
             {
                 System.out.println("Houve um problema para encerrar a conexão do banco de dados!");
                 ex.printStackTrace();
-                //TODO Metodo de log em arquivo
             }
         }
     }
@@ -146,7 +142,6 @@ public class Paciente extends BancoBasico
             System.out.println("Houve um problema para localizar o paciente!");
             ex.printStackTrace();
             return objPaciente;
-            //TODO Metodo de log em arquivo
         }
         finally
         {
@@ -166,7 +161,6 @@ public class Paciente extends BancoBasico
             {
                 System.out.println("Houve um problema para encerrar a conexão do banco de dados!");
                 ex.printStackTrace();
-                //TODO Metodo de log em arquivo
             }
         }
     }
@@ -201,7 +195,6 @@ public class Paciente extends BancoBasico
             System.out.println("Houve um problema para localizar o paciente!");
             ex.printStackTrace();
             return objPaciente;
-            //TODO Metodo de log em arquivo
         }
         finally
         {
@@ -221,7 +214,6 @@ public class Paciente extends BancoBasico
             {
                 System.out.println("Houve um problema para encerrar a conexão do banco de dados!");
                 ex.printStackTrace();
-                //TODO Metodo de log em arquivo
             }
         }
     }
@@ -265,7 +257,6 @@ public class Paciente extends BancoBasico
             System.out.println("Houve um problema para localizar os pacientes!");
             ex.printStackTrace();
             return listaPacientes;
-            //TODO Metodo de log em arquivo
         }
         finally
         {
@@ -285,7 +276,6 @@ public class Paciente extends BancoBasico
             {
                 System.out.println("Houve um problema para encerrar a conexão do banco de dados!");
                 ex.printStackTrace();
-                //TODO Metodo de log em arquivo
             }
         }
     }

@@ -1,29 +1,30 @@
 package com.ezmed.dto;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Alerta {
 
     private int id;
     private Date horario;
-    private Cuidador assistante;
+    private ArrayList<Cuidador> assistantes;
     private Tratamento tratamento;
     private Paciente paciente;
     private String observacao;
 
-    public Alerta(int id, Date horario, Cuidador assistante, Tratamento tratamento, Paciente paciente, String observacao) {
+    public Alerta(int id, Date horario, ArrayList<Cuidador> assistantes, Tratamento tratamento, Paciente paciente, String observacao) {
         this.id = id;
         this.horario = horario;
-        this.assistante = assistante;
+        this.assistantes = assistantes;
         this.tratamento = tratamento;
         this.paciente = paciente;
         this.observacao = observacao;
     }
 
-    public Alerta(Date horario, Cuidador assistante, Tratamento tratamento, Paciente paciente, String observacao) {
+    public Alerta(Date horario, ArrayList<Cuidador> assistantes, Tratamento tratamento, Paciente paciente, String observacao) {
         this.horario = horario;
-        this.assistante = assistante;
+        this.assistantes = assistantes;
         this.tratamento = tratamento;
         this.paciente = paciente;
         this.observacao = observacao;
@@ -59,12 +60,14 @@ public class Alerta {
         this.horario = horario;
     }
 
-    public Cuidador getAssistante() {
-        return assistante;
+    public ArrayList<Cuidador> getAssistantes()
+    {
+        return assistantes;
     }
 
-    public void setAssistante(Cuidador assistante) {
-        this.assistante = assistante;
+    public void setAssistantes(ArrayList<Cuidador> assistantes)
+    {
+        this.assistantes = assistantes;
     }
 
     public Tratamento getTratamento() {
